@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <!-- <link rel="stylesheet" href="index.css">  -->
+    <title>Train</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    	var playcount = -1;
+    	var timespent = 0;
+
+    	function numCount(){
+    		playcount += 1;
+    		var el = document.getElementById('playcount');
+    		el.value = playcount;
+		}
+
+		function loaded(){
+			timespent = new Date().getTime();
+			var el = document.getElementById('junk');
+			numCount();
+		}
+		function submitted(){
+			document.getElementById('timespent').value = (new Date().getTime() - timespent)/1000;
+			return true;
+		}
+
+	</script>
+</head>
+<body onload="loaded()">
+	<div align="middle"> 
+		<img src="{{ image }}" align="middle" style = "max-width:40%;max-height:40%;"> 
+	</div>
+
+	<div align="middle">
+		<audio controls onplay="numCount()"> <source src={{label}} type="audio/wav"> </audio> 
+	</div>
+	<br><br><br>
+	<div align="middle">
+		<form action="/traininfo" method="post" id="next" onSubmit = "return submitted()">
+			<input name="playcount" id="playcount" hidden>
+			<input name="timespent" id="timespent" hidden></h2>
+	    	<input type="submit" name="next" value="Proceed"> 
+	    </form>
+    </div>
+    <!-- 
+    <div align="middle">
+    	<form action="/train" method="post">
+    		<input type="submit" name="test" value="Proceed" {{proceed}}> 
+    	</form>
+    </div> -->
+	<!-- <div style="float:left"> <img src="{{ user_image }}" align="middle"> </div> -->
+
+</body>
+</html>
